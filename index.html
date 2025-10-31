@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You Are My Sunshine 🌻</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      background: linear-gradient(#fff4b3, #ffd6e0);
+      transition: background 1s ease, opacity 1s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    /* Hearts background */
+    .hearts-bg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .heart {
+      position: absolute;
+      bottom: 0;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      opacity: 0.8;
+      transform: rotate(45deg);
+      animation: floatUp 5s linear infinite;
+      border-radius: 5px;
+    }
+    .heart::before, .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      border-radius: 50%;
+    }
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: 10px; top: 0; }
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
+    }
+
+    /* --- Home Section --- */
+    .home-content {
+      position: relative;
+      z-index: 2;
+      color: #8b4a00;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      transition: opacity 1s ease;
+    }
+
+    .home-content h1 {
+      font-size: 1.8rem;
+    }
+
+    #reveal-btn {
+      background: #ffb300;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(255, 183, 0, 0.4);
+      transition: transform 0.3s;
+    }
+    #reveal-btn:hover { transform: scale(1.1); }
+
+    /* --- Sunflower Section --- */
+    .sunflower-section {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1s ease;
+    }
+
+    .sunflower-section.active {
+      opacity: 1;
+      visibility: visible;
+      background: linear-gradient(#fff9c4, #ffecb3);
+    }
+
+    .card {
+      z-index: 2;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .card h1 {
+      font-size: 1.5rem;
+      color: #6a4a00;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+
+    .sunflower-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: bounce 4s ease-in-out infinite;
+    }
+    @keyframes bounce {
+      0%,100%{transform:translateY(0);}
+      50%{transform:translateY(-10px);}
+    }
+
+    .sunflower {
+      position: relative;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center,#fffbb9 0%,#ffeb3b 40%,#f4b400 70%,#ffb300 100%);
+      box-shadow: 0 0 40px 10px rgba(255,223,0,0.7),0 0 80px 20px rgba(255,223,0,0.5);
+      animation: sunGlow 3s ease-in-out infinite alternate;
+      margin-bottom: 60px;
+      cursor: pointer;
+    }
+    .sunflower::before {
+      content: "";
+      position: absolute;
+      top: -25px; left: -25px;
+      width: 190px; height: 190px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg,rgba(255,220,0,0.8) 0deg 15deg,transparent 15deg 30deg);
+      animation: rotateRays 10s linear infinite;
+    }
+    .sunflower::after {
+      content: "";
+      position: absolute;
+      bottom: -120px; left: 50%;
+      width: 10px; height: 120px;
+      background: linear-gradient(to bottom,#5fae4d,#3f8e2a);
+      border-radius: 10px;
+      transform: translateX(-50%);
+      animation: swayStem 4s ease-in-out infinite alternate;
+    }
+
+    .face {
+      position: absolute;
+      top: 45%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      color: #5c3b00;
+    }
+
+    .sunflower .leaf {
+      position: absolute;
+      bottom: -60px;
+      width: 50px; height: 30px;
+      background: linear-gradient(to right,#62c157,#3c8d33);
+      border-radius: 30px 30px 0 30px;
+    }
+    .leaf.left {
+      left: calc(50% - 60px);
+      transform: rotate(-20deg);
+      animation: swayLeavesLeft 4s ease-in-out infinite alternate;
+    }
+    .leaf.right {
+      right: calc(50% - 60px);
+      transform: rotate(20deg) scaleX(-1);
+      animation: swayLeavesRight 4s ease-in-out infinite alternate;
+    }
+
+    .happy-bounce {
+      animation: happyBounce 1s ease-in-out;
+    }
+    @keyframes happyBounce {
+      0%{transform:scale(1);}
+      30%{transform:scale(1.2);}
+      60%{transform:scale(0.9);}
+      100%{transform:scale(1);}
+    }
+
+    @keyframes sunGlow {
+      0%{box-shadow:0 0 40px 10px rgba(255,223,0,0.7),0 0 80px 20px rgba(255,223,0,0.5);}
+      100%{box-shadow:0 0 60px 15px rgba(255,240,0,0.9),0 0 100px 25px rgba(255,240,0,0.7);}
+    }
+    @keyframes rotateRays {
+      from{transform:rotate(0deg);}
+      to{transform:rotate(360deg);}
+    }
+    @keyframes swayStem {
+      0%{transform:translateX(-50%) rotate(1deg);}
+      100%{transform:translateX(-50%) rotate(-1deg);}
+    }
+    @keyframes swayLeavesLeft {
+      0%{transform:rotate(-20deg);}
+      100%{transform:rotate(-10deg);}
+    }
+    @keyframes swayLeavesRight {
+      0%{transform:rotate(20deg) scaleX(-1);}
+      100%{transform:rotate(10deg) scaleX(-1);}
+    }
+
+    @media(max-width:480px){
+      .card{padding:1.5rem;}
+      .sunflower{width:100px;height:100px;}
+      .card h1{font-size:1.2rem;}
+      .sunflower::after{height:80px;}
+      .sunflower .leaf{width:35px;height:20px;bottom:-40px;}
+      .home-content h1{font-size:1.3rem;}
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts-bg"></div>
+
+  <!-- Romantic Intro -->
+  <div class="home-content" id="home">
+    <h1>💛 Tap to see something special 💛</h1>
+    <button id="reveal-btn">Open Surprise</button>
+  </div>
+
+  <!-- Sunflower Section -->
+  <div class="sunflower-section" id="sunflowerSection">
+    <div class="card">
+      <div class="sunflower-container">
+        <div class="sunflower" id="sunflower">
+          <div class="face" id="face">😊</div>
+          <div class="leaf left"></div>
+          <div class="leaf right"></div>
+        </div>
+      </div>
+      <h1>You Are so Beautiful 🌻</h1>
+    </div>
+  </div>
+
+  <script>
+    const bg = document.querySelector(".hearts-bg");
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 3 + Math.random() * 2 + "s";
+      bg.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 600);
+
+    const revealBtn = document.getElementById("reveal-btn");
+    const home = document.getElementById("home");
+    const sunflowerSection = document.getElementById("sunflowerSection");
+
+    revealBtn.addEventListener("click", () => {
+      home.style.opacity = "0";
+      setTimeout(() => {
+        home.style.display = "none";
+        sunflowerSection.classList.add("active");
+      }, 1000);
+    });
+
+    const sunflower = document.getElementById("sunflower");
+    const face = document.getElementById("face");
+    sunflower.addEventListener("click", () => {
+      face.textContent = face.textContent === "😊" ? "🥰" : "😊";
+      sunflower.classList.add("happy-bounce");
+      setTimeout(() => sunflower.classList.remove("happy-bounce"), 1000);
+    });
+  </script>
+</body>
+</html>
